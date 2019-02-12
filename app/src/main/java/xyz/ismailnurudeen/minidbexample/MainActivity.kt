@@ -65,7 +65,6 @@ class MainActivity : AppCompatActivity() {
                 Log.d("SIGN_UP", "image save failed")
             }
         }
-
         val likes = ArrayList<String>()
         if (like_fashion.isChecked) likes.add("Fashion")
         if (like_football.isChecked) likes.add("Football")

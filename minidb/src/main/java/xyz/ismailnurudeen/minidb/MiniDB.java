@@ -12,7 +12,6 @@ import java.util.List;
 import java.util.Set;
 
 import xyz.ismailnurudeen.minidb.utils.BitmapToStringConverter;
-import xyz.ismailnurudeen.minidb.utils.SecurePreferences;
 import xyz.ismailnurudeen.minidb.utils.VUtils;
 
 public class MiniDB {
@@ -20,9 +19,6 @@ public class MiniDB {
     private String mName;
     private Gson mGson;
     private SharedPreferences mSharedPref;
-    private SharedPreferences.Editor mSharedPrefEditor;
-    private boolean isEncrypted = false;
-    private SecurePreferences mSecurePrefs;
 
     /**
      * This will initialize an instance of the SecurePreferences class
@@ -71,6 +67,17 @@ public class MiniDB {
     }
 
     public boolean insertIntArray(String key, Integer[] value) {
+        return mSharedPref.edit().putString(key, mGson.toJson(value)).commit();
+    }
+
+    public boolean insertLongArray(String key, Long[] value) {
+        return mSharedPref.edit().putString(key, mGson.toJson(value)).commit();
+    }
+
+    public boolean insertShortArray(String key, Short[] value) {
+        return mSharedPref.edit().putString(key, mGson.toJson(value)).commit();
+    }
+    public boolean insertFloatArray(String key, Float[] value) {
         return mSharedPref.edit().putString(key, mGson.toJson(value)).commit();
     }
 
@@ -180,12 +187,36 @@ public class MiniDB {
         return defaultValue;
     }
 
+    public long[] readLongArray(String key, long[] defaultValue) {
+        String objectStr = mSharedPref.getString(key, "");
+        if (!objectStr.equalsIgnoreCase("")) {
+            return mGson.fromJson(objectStr, defaultValue.getClass());
+        }
+        return defaultValue;
+    }
+
+    public short[] readShortArray(String key, short[] defaultValue) {
+        String objectStr = mSharedPref.getString(key, "");
+        if (!objectStr.equalsIgnoreCase("")) {
+            return mGson.fromJson(objectStr, defaultValue.getClass());
+        }
+        return defaultValue;
+    }
+
+    public float[] readFloatArray(String key, float[] defaultValue) {
+        String objectStr = mSharedPref.getString(key, "");
+        if (!objectStr.equalsIgnoreCase("")) {
+            return mGson.fromJson(objectStr, defaultValue.getClass());
+        }
+        return defaultValue;
+    }
+
     public boolean deleteAll() {
         return mSharedPref.edit().clear().commit();
     }
 
     public void deleteValue(String key) {
-        mSecurePrefs.removeValue(key);
+        mSharedPref.edit().remove(key).apply();
     }
 
 }
