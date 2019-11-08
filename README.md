@@ -1,8 +1,10 @@
+[![](https://jitpack.io/v/ElNuru247/MiniDB.svg)](https://jitpack.io/#ElNuru247/MiniDB)
+
 # MiniDB
 An Android Library that extends the capability of shared preferences and adding security
 
 ## Setup
--To use the library in your projects,follow the steps below;
+- To use the library in your projects,follow the steps below;
 
 Step 1. Add the JitPack repository to your build file
 
